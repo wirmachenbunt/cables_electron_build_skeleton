@@ -4,7 +4,7 @@ set -e
 zip=${2:-skip}
 platform=${1?please specify platform to build for};
 
-cd src/
+cd patch/
 npm install
 cd ..
 
