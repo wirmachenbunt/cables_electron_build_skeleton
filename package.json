@@ -1,0 +1,24 @@
+{
+  "name": "cables-electron-build-skeleton",
+  "version": "0.0.1",
+  "license": "MIT",
+  "description": "electron build skeleton for cables patch export",
+  "author": "undefined development <hi@undev.de>",
+  "repository": "github:undev-studio/cables_electron_build_skeleton",
+  "keywords": [
+    "cables",
+    "cables.gl",
+    "webgl",
+    "electron"
+  ],
+  "scripts": {
+    "clean": "rm -rf node_modules/ && rm -rf src/node_modules/ && find src/patches/ -maxdepth 1 -mindepth 1 ! -name default ! -name .gitignore -exec rm -rf {} \\;",
+    "start:linux": "electron/linux-x64/electron src/main.js",
+    "start:win": "electron/win32-x64/electron src/main.js",
+    "start:osx": "electron/darwin-x64/electron src/main.js",
+    "build:linux": "./build.sh linux-x64",
+    "build:osx": "./build.sh darwin-x64",
+    "build:win": "./build.sh win32-x64",
+    "package": "./update_electron.sh 7.1.1 && ./build.sh win32-x64 zip && ./build.sh darwin-x64 zip && ./build.sh linux-x64 zip"
+  }
+}
