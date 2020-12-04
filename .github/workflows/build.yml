@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - name: Create Release
+      - name: create release
         id: create_release
         uses: actions/create-release@v1.0.0
         env:
@@ -23,33 +23,13 @@ jobs:
       - name: create executable
         id: create-executable
         run: exec npm run build:linux
-      - name: Upload Windows Build
-        id: upload-release-asset
-        uses: actions/upload-release-asset@v1.0.1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: upload build
+        uses: meeDamian/github-release@2.0
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./build/patch-win32-x64.zip
-          asset_name: patch-win32-x64.zip
-          asset_content_type: text/javascript
-      - name: Upload OSX Build
-        id: upload-release-asset
-        uses: actions/upload-release-asset@v1.0.1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./build/patch-darwin-x64.zip
-          asset_name: patch-darwin-x64.zip
-          asset_content_type: text/javascript
-      - name: Upload Linux Build
-        id: upload-release-asset
-        uses: actions/upload-release-asset@v1.0.1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./build/patch-linux-x64.zip
-          asset_name: patch-linux-x64.zip
-          asset_content_type: text/javascript
+          token: ${{ secrets.GITHUB_TOKEN }}
+          tag: run-${{ github.run_number }}
+          gzip: folders
+          files: >
+            ./build/patch-win32-x64.zip
+            ./build/patch-darwin-x64.zip
+            ./build/patch-linux-x64.zip
