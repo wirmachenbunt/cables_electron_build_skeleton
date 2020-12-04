@@ -22,6 +22,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           tag: run-${{ github.run_number }}
+          gzip: folders
           files: >
             ./build/patch-win32-x64.zip
             ./build/patch-darwin-x64.zip
