@@ -1,6 +1,14 @@
 #!/bin/bash
 set -e
 
+source .env
+echo $PATCH_NAME
+echo "PATCHNAME IS ${PATCH_NAME}"
+if [[ "${PATCH_NAME}" == "" ]]; then
+  PATCH_NAME="patch"
+fi
+echo "PATCHNAME IS ${PATCH_NAME}"
+
 patchname=${3:-skip}
 zip=${2:-skip}
 platform=${1?please specify platform to build for};
@@ -33,12 +41,6 @@ else
     exit 1;
 fi
 
-echo "PATCHNAME IS ${patchname}"
-if [[ "${patchname}" == "skip" ]]; then
-  patchname="patch"
-fi
-echo "PATCHNAME IS ${patchname}"
-
 if [[ "${zip}" == "zip" ]]; then
-    zip -qr ../${patchname}-${platform}.zip *
+    zip -qr ../${PATCH_NAME}-${platform}.zip *
 fi

@@ -10,16 +10,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - name: install dependencies
-        run: npm install
       - name: change permissions
         run: exec chmod +x build.sh
       - name: change permissions
         run: exec chmod +x update_electron.sh
       - name: set version env variable
-        run: |
-          PATCH_NAME=$(cat .env)
-          echo "PATCH_NAME=$PATCH_NAME" >> $GITHUB_ENV
+        uses: c-py/action-dotenv-to-setenv@v2
+        with:
+          env-file: .env
       - name: create executable
         id: create-executable
         run: exec npm run package
