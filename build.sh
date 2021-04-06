@@ -2,16 +2,15 @@
 set -e
 
 source patch/.env
-echo $PATCH_NAME
-echo "PATCHNAME IS ${PATCH_NAME}"
 if [[ "${PATCH_NAME}" == "" ]]; then
   PATCH_NAME="patch"
 fi
-echo "PATCHNAME IS ${PATCH_NAME}"
 
 patchname=${3:-skip}
 zip=${2:-skip}
 platform=${1?please specify platform to build for};
+
+echo "BUILDING ${PATCH_NAME}..."
 
 cd patch/
 npm install

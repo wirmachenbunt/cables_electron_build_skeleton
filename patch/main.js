@@ -56,7 +56,7 @@ app.on('ready', function()
       'Escape',
       function()
       {
-        mainWindow.setFullScreen(false);
+        if(mainWindow) mainWindow.setFullScreen(false);
       });
 });
 
