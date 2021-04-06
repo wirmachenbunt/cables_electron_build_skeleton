@@ -30,6 +30,6 @@ jobs:
           tag: run-${{ github.run_number }}
           gzip: folders
           files: >
-            ./build/${{ env.VERSION }}-win32-x64.zip
-            ./build/${{ env.VERSION }}-darwin-x64.zip
-            ./build/${{ env.VERSION }}-linux-x64.zip
+            ./build/${{ env.PATCH_NAME }}-win32-x64.zip
+            ./build/${{ env.PATCH_NAME }}-darwin-x64.zip
+            ./build/${{ env.PATCH_NAME }}-linux-x64.zip
