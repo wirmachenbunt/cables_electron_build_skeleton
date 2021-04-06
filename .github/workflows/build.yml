@@ -18,7 +18,7 @@ jobs:
         run: exec chmod +x update_electron.sh
       - name: set version env variable
         run: |
-          VER=$(cat .env)
+          PATCH_NAME=$(cat .env)
           echo "PATCH_NAME=$PATCH_NAME" >> $GITHUB_ENV
       - name: create executable
         id: create-executable
