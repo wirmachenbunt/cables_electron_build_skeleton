@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-source .env
+source patch/.env
 echo $PATCH_NAME
 echo "PATCHNAME IS ${PATCH_NAME}"
 if [[ "${PATCH_NAME}" == "" ]]; then
