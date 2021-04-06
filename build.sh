@@ -1,6 +1,7 @@
 #!/bin/bash
 set -e
 
+patchname=${3:-skip}
 zip=${2:-skip}
 platform=${1?please specify platform to build for};
 
@@ -32,6 +33,12 @@ else
     exit 1;
 fi
 
+echo "PATCHNAME IS ${patchname}"
+if [[ "${patchname}" == "skip" ]]; then
+  patchname="patch"
+fi
+echo "PATCHNAME IS ${patchname}"
+
 if [[ "${zip}" == "zip" ]]; then
-    zip -qr ../patch-${platform}.zip *
+    zip -qr ../${patchname}-${platform}.zip *
 fi
