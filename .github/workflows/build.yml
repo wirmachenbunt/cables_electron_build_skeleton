@@ -30,4 +30,5 @@ jobs:
           files: >
             ./build/${{ env.PATCH_NAME }}-win32-x64.zip
             ./build/${{ env.PATCH_NAME }}-darwin-x64.zip
+            ./build/${{ env.PATCH_NAME }}-darwin-arm64.zip
             ./build/${{ env.PATCH_NAME }}-linux-x64.zip
