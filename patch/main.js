@@ -1,6 +1,8 @@
 const electron = require('electron');
 // Module to control application life.
 const app = electron.app;
+const Menu = electron.Menu;
+
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow;
 
@@ -17,10 +19,9 @@ function createWindow () {
       {
         width: 1920,
         height: 1080
-      });
+      },
+  );
   mainWindow.setFullScreen(true);
-
-
 
   // and load the index.html of the app.
   mainWindow.loadURL(url.format({
@@ -31,10 +32,6 @@ function createWindow () {
 
   mainWindow.setAutoHideMenuBar(true);
 
-
-  // Open the DevTools.
-  // mainWindow.webContents.openDevTools();
-
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {
     // Dereference the window object, usually you would store windows
@@ -42,6 +39,33 @@ function createWindow () {
     // when you should delete the corresponding element.
     mainWindow = null;
   });
+
+  const menu = Menu.buildFromTemplate([
+    {
+      "label": "Menu",
+      "submenu": [{
+        "label": "Toggle fullscreen",
+        "visible": true,
+        "accelerator": "Esc",
+        click(item, focusedWindow) {
+          if (focusedWindow.isFullScreen()) {
+            focusedWindow.setFullScreen(false);
+          }else{
+            focusedWindow.setFullScreen(true);
+          }
+        },
+      },
+      {
+        label: "Exit",
+        accelerator: "CmdOrCtrl+Q",
+        click() {
+          app.quit();
+        }
+      }
+      ]
+    }]
+  );
+  Menu.setApplicationMenu(menu);
 }
 
 // This method will be called when Electron has finished
@@ -52,19 +76,6 @@ function createWindow () {
 app.on('ready', function()
 {
   createWindow();
-  const ret = electron.globalShortcut.register(
-      'Escape',
-      function()
-      {
-        if(mainWindow) mainWindow.setFullScreen(false);
-      });
-});
-
-app.on('will-quit', function(){
-
-  electron.globalShortcut.unregister('Escape');
-
-  electron.globalShortcut.unregisterAll();
 });
 
 // Quit when all windows are closed.

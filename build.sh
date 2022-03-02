@@ -13,7 +13,7 @@ platform=${1?please specify platform to build for};
 echo "BUILDING ${PATCH_NAME} for ${platform}..."
 
 cd patch/
-npm install
+#npm install
 cd ..
 
 mkdir -p build
