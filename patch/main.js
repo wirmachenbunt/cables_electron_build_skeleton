@@ -18,27 +18,12 @@ function createWindow () {
   mainWindow = new BrowserWindow(
       {
         width: 1920,
-        height: 1080
+        height: 1080,
+        autoHideMenuBar: true
       },
   );
-  mainWindow.setFullScreen(true);
-
-  // and load the index.html of the app.
-  mainWindow.loadURL(url.format({
-    pathname: path.join(__dirname, 'index.html'),
-    protocol: 'file:',
-    slashes: true
-  }));
-
   mainWindow.setAutoHideMenuBar(true);
-
-  // Emitted when the window is closed.
-  mainWindow.on('closed', function () {
-    // Dereference the window object, usually you would store windows
-    // in an array if your app supports multi windows, this is the time
-    // when you should delete the corresponding element.
-    mainWindow = null;
-  });
+  mainWindow.setFullScreen(true);
 
   const menu = Menu.buildFromTemplate([
     {
@@ -50,22 +35,41 @@ function createWindow () {
         click(item, focusedWindow) {
           if (focusedWindow.isFullScreen()) {
             focusedWindow.setFullScreen(false);
+            mainWindow.setMenuBarVisibility(true);
           }else{
             focusedWindow.setFullScreen(true);
+            mainWindow.setMenuBarVisibility(false);
           }
         },
       },
-      {
-        label: "Exit",
-        accelerator: "CmdOrCtrl+Q",
-        click() {
-          app.quit();
+        {
+          label: "Exit",
+          accelerator: "CmdOrCtrl+Q",
+          click() {
+            app.quit();
+          }
         }
-      }
       ]
     }]
   );
   Menu.setApplicationMenu(menu);
+
+
+  // and load the index.html of the app.
+  mainWindow.loadURL(url.format({
+    pathname: path.join(__dirname, 'index.html'),
+    protocol: 'file:',
+    slashes: true
+  }));
+
+  // Emitted when the window is closed.
+  mainWindow.on('closed', function () {
+    // Dereference the window object, usually you would store windows
+    // in an array if your app supports multi windows, this is the time
+    // when you should delete the corresponding element.
+    mainWindow = null;
+  });
+
 }
 
 // This method will be called when Electron has finished
